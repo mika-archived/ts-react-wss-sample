@@ -1,3 +1,4 @@
+import colors from "colors.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
@@ -8,8 +9,8 @@ const GlobalStyles = createGlobalStyle`
   body {
     height: 100vh;
     margin: 0;
-    color: #333;
-    background-color: #f9f9f9;
+    color: ${colors.black};
+    background-color: ${colors.white};
   }
 
   #app {
