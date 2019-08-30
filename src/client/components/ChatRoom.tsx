@@ -1,33 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import Container from "./Container";
-import EnterRoom from "./EnterRoom";
+
+type Props = {
+  id: string;
+};
 
 type State = {
-  id: string | null;
+  id: string;
+  messages: string[];
 };
 
 const initialState: State = {
-  id: null
+  id: "",
+  messages: []
 };
 
-const ChatRoom: React.FC<{ className?: string }> = ({ className }) => {
-  const [state, setState] = useState<State>(initialState);
+const ChatRoom: React.FC<Props> = ({ id }) => {
+  const [state, setState] = useState<State>({ ...initialState, id });
 
   return (
-    <Container className={className}>
-      {state.id ? <></> : <EnterRoom onSubmit={value => setState({ id: value })} />}
-    </Container>
+    <>
+      {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
+      <h2>RoomID: {state.id}</h2>
+    </>
   );
 };
 
 ChatRoom.propTypes = {
-  className: PropTypes.string
-};
-
-ChatRoom.defaultProps = {
-  className: ""
+  id: PropTypes.string.isRequired
 };
 
 export default ChatRoom;

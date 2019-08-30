@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import ChatRoom from "./components/ChatRoom";
+import Content from "./components/Content";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -11,7 +11,7 @@ const Layout = styled.div`
   height: 100%;
 `;
 
-const Content = styled(ChatRoom)`
+const Main = styled(Content)`
   flex: 1;
 `;
 
@@ -19,7 +19,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Header />
-      <Content />
+      <Main />
       <Footer />
     </Layout>
   );
