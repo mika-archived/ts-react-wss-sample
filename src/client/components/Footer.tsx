@@ -1,6 +1,6 @@
 import React from "react";
 
-import Container from "./Container";
+import Container from "./controls/Container";
 
 const Footer: React.FC = () => {
   return (

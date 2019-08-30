@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import Container from "./controls/Container";
 import ChatRoom from "./ChatRoom";
-import Container from "./Container";
 import EnterRoom from "./EnterRoom";
 
 const Content: React.FC<{ className?: string }> = ({ className }) => {
