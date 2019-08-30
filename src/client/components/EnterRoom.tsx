@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Button from "./Button";
-import TextBox from "./TextBox";
+import Button from "./controls/Button";
+import TextBox from "./controls/TextBox";
 
 type Props = {
   onSubmit: (id: string) => void;
