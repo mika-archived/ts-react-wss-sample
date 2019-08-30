@@ -10,13 +10,25 @@
   "parserOptions": {
     "sourceType": "module"
   },
+  "globals": {
+    "document": true,
+    "window": true
+  },
   "rules": {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["**/*{.,_}{test,spec}.{js,jsx,ts,tsx}"] }
+      {
+        "devDependencies": ["**/*{.,_}{test,spec}.{js,jsx,ts,tsx}"]
+      }
     ],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".ts", ".jsx", ".tsx"]
+      }
+    ]
   }
 }
