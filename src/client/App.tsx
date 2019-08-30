@@ -1,15 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+import { VerticalLayout } from "./components/controls/Layout";
 import Content from "./components/Content";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
 
 const Main = styled(Content)`
   flex: 1;
@@ -17,11 +12,11 @@ const Main = styled(Content)`
 
 const App: React.FC = () => {
   return (
-    <Layout>
+    <VerticalLayout>
       <Header />
       <Main />
       <Footer />
-    </Layout>
+    </VerticalLayout>
   );
 };
 
