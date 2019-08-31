@@ -1,9 +1,12 @@
+import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { VerticalLayout } from "./controls/Layout";
+import { Message } from "../../type";
 import useSocket from "../hooks/useSocket";
+import { VerticalLayout } from "./controls/Layout";
 import ChatInputBox from "./ChatInputBox";
+import ChatMessage from "./ChatMessage";
 
 type Props = {
   id: string;
@@ -11,7 +14,7 @@ type Props = {
 
 type State = {
   id: string;
-  messages: string[];
+  messages: Message[];
 };
 
 const initialState: State = {
@@ -28,16 +31,20 @@ const ChatRoom: React.FC<Props> = ({ id }) => {
       socket.emit("join", { room: state.id });
     });
 
-    socket.on("message", (message: any) => {
+    socket.on("message", (message: Message) => {
       setState({ ...state, messages: [...state.messages, message] });
     });
 
     socket.open();
   });
 
-  const sendMessage = (message: string): void => {
-    socket.send({ room: state.id, content: message });
-    setState({ ...state, messages: [...state.messages, message] });
+  const sendMessage = (content: string): void => {
+    const message = { user: "Anonymous", content, timestamp: dayjs().unix() };
+    socket.send({ room: state.id, ...message });
+    setState({
+      ...state,
+      messages: [...state.messages, { user: "You", ...message }]
+    });
   };
 
   return (
@@ -49,8 +56,7 @@ const ChatRoom: React.FC<Props> = ({ id }) => {
       </div>
       <div style={{ flex: 1 }}>
         {state.messages.map(w => (
-          /* eslint-disable-next-line react/jsx-one-expression-per-line */
-          <p key={w}>Anonymous: {w}</p>
+          <ChatMessage key={w.timestamp} message={w} />
         ))}
       </div>
       <div>

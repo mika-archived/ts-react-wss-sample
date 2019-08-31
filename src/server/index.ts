@@ -1,7 +1,12 @@
 /* eslint-disable no-console */
+import dayjs from "dayjs";
 import express from "express";
 import { Server } from "http";
 import SocketIO from "socket.io";
+
+function timestamp(): number {
+  return dayjs().unix();
+}
 
 const app = express();
 const server = new Server(app);
@@ -20,18 +25,23 @@ io.on("connection", socket => {
   });
 
   socket.on("join", message => {
-    console.log(`user joined to ${message.room}`);
     socket.join(message.room);
+    socket.broadcast
+      .to(message.room)
+      .emit("message", { user: "System", content: `Anonymous joined to this room`, timestamp: timestamp() });
   });
 
   socket.on("leave", message => {
-    console.log(`user leaved from ${message.room}`);
     socket.leave(message.room);
+    socket.broadcast
+      .to(message.room)
+      .emit("message", { user: "System", content: `Anonymous leaved from this room`, timestamp: timestamp() });
   });
 
   socket.on("message", message => {
-    console.log(`user send message from/to ${message.room} "${message.content}"`);
-    socket.broadcast.to(message.room).emit("message", message.content);
+    socket.broadcast
+      .to(message.room)
+      .emit("message", { user: "Anonymous", content: message.content, timestamp: timestamp() });
   });
 });
 
