@@ -10,9 +10,13 @@ const useSocket = (
   listeners: Listeners,
   opts?: SocketIOClient.ConnectOpts
 ): { socket: SocketIOClient.Socket } => {
-  const [socket] = useState<SocketIOClient.Socket>(io(uri, { ...opts, autoConnect: false }));
+  const [socket, setSocket] = useState<SocketIOClient.Socket>(io(uri, { ...opts, autoConnect: false }));
   const refs = useRef(listeners);
   refs.current = listeners;
+
+  useEffect(() => {
+    if (socket.io.uri !== uri) setSocket(io(uri, { ...opts, autoConnect: false }));
+  }, [uri]);
 
   useEffect(() => {
     socket.on("connect", () => console.log("connected"));
