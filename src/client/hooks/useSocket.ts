@@ -1,26 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
-type State = {
-  socket: SocketIOClient.Socket;
+type Listeners = {
+  [key: string]: (...args: any[]) => void;
 };
 
-const initialState: Omit<State, "socket"> = {};
+const useSocket = (uri: string, listeners: Listeners, opts?: SocketIOClient.ConnectOpts): Pick<State, "socket"> => {
+  const [state] = useState<SocketIOClient.Socket>(io(uri, opts));
+  const references = useRef(listeners); // used as instance variable
+  references.current = listeners;
 
-const useSocket = (uri: string, opts?: SocketIOClient.ConnectOpts): Pick<State, "socket"> => {
-  const [state] = useState<State>({ ...initialState, socket: io(uri, { ...opts, autoConnect: false }) });
+  // useEffect(() => {
+  //   setState(io(uri, opts));
+  // }, [uri]); // TODO: should I use lodash.deepEqual for comparing opts?
 
   useEffect(() => {
-    state.socket.on("connect", () => console.log("connected"));
-    state.socket.on("disconnect", () => console.log("disconnected"));
+    state.on("connect", () => console.log("connected"));
+    state.on("disconnect", () => console.log("disconnected"));
+
+    const runCallback = (event: string, ...args: any[]): void => {
+      const listener = references.current[event];
+      if (listener) listener(...args);
+    };
+
+    Object.keys(listeners).forEach(event => state.on(event, (...args: any[]) => runCallback(event, ...args)));
+
+    state.connect();
 
     return () => {
-      state.socket.disconnect();
-      state.socket.removeAllListeners();
+      state.disconnect();
+      state.removeAllListeners();
     };
-  }, [uri, opts]);
+  }, [state]);
 
-  return { socket: state.socket };
+  return { socket: state };
 };
 
 export default useSocket;

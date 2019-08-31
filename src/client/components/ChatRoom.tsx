@@ -26,26 +26,20 @@ const initialState: State = {
 
 const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
   const [state, setState] = useState<State>({ ...initialState, id });
-  const { socket } = useSocket(`http://localhost:3002`);
+  const { socket } = useSocket(`http://localhost:3002`, {
+    message: (message: Message) => setState({ ...state, messages: [...state.messages, message] })
+  });
 
   useEffect(() => {
-    socket.on("connect", () => {
-      socket.emit("join", { room: state.id });
-    });
-
-    socket.on("message", (message: Message) => {
-      setState({ ...state, messages: [...state.messages, message] });
-    });
-
-    socket.open();
-  });
+    socket.emit("join", { room: state.id });
+  }, [id]);
 
   const sendMessage = (content: string): void => {
     const message = { user: "Anonymous", content, timestamp: dayjs().unix() };
-    socket.send({ room: state.id, ...message });
+    socket.emit("message", { room: state.id, ...message });
     setState({
       ...state,
-      messages: [...state.messages, { user: "You", ...message }]
+      messages: [...state.messages, { ...message, user: "You" }]
     });
   };
 
@@ -54,7 +48,6 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
       <div>
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
         <h2>Room ID: {state.id}</h2>
-        <p>Messages</p>
       </div>
       <div style={{ flex: 1 }}>
         {state.messages.map(w => (
