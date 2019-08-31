@@ -31,7 +31,7 @@ const ChatInputBox: React.FC<Props> = props => {
         onChange={event => setState({ message: event.target.value })}
         style={{ flex: 1 }}
       />
-      <Button primary onClick={() => sendMessage()} type="submit" style={{ width: "100px" }}>
+      <Button primary disabled={!state.message} onClick={() => sendMessage()} type="submit" style={{ width: "100px" }}>
         送信
       </Button>
     </HorizontalLayout>
