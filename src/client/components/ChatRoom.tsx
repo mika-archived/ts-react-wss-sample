@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 
 import { Message } from "../../type";
 import useSocket from "../hooks/useSocket";
-import { VerticalLayout } from "./controls/Layout";
+import Button from "./controls/Button";
+import { HorizontalLayout, VerticalLayout } from "./controls/Layout";
 import ChatInputBox from "./ChatInputBox";
 import ChatMessage from "./ChatMessage";
 
 type Props = {
   id: string;
+  onLeave: () => void;
 };
 
 type State = {
@@ -22,7 +24,7 @@ const initialState: State = {
   messages: []
 };
 
-const ChatRoom: React.FC<Props> = ({ id }) => {
+const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
   const [state, setState] = useState<State>({ ...initialState, id });
   const { socket } = useSocket(`http://localhost:3002`);
 
@@ -59,15 +61,19 @@ const ChatRoom: React.FC<Props> = ({ id }) => {
           <ChatMessage key={w.timestamp} message={w} />
         ))}
       </div>
-      <div>
-        <ChatInputBox onSubmit={message => sendMessage(message)} />
-      </div>
+      <HorizontalLayout>
+        <div style={{ flex: 1 }}>
+          <ChatInputBox onSubmit={message => sendMessage(message)} />
+        </div>
+        <Button onClick={() => onLeave()}>退室する</Button>
+      </HorizontalLayout>
     </VerticalLayout>
   );
 };
 
 ChatRoom.propTypes = {
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  onLeave: PropTypes.func.isRequired
 };
 
 export default ChatRoom;

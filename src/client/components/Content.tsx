@@ -10,7 +10,11 @@ const Content: React.FC<{ className?: string }> = ({ className }) => {
 
   return (
     <Container className={className}>
-      {roomId ? <ChatRoom id={roomId} /> : <EnterRoom onSubmit={value => setRoomId(value)} />}
+      {roomId ? (
+        <ChatRoom id={roomId} onLeave={() => setRoomId(null)} />
+      ) : (
+        <EnterRoom onSubmit={value => setRoomId(value)} />
+      )}
     </Container>
   );
 };
