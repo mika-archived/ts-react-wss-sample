@@ -11,9 +11,12 @@ const useSocket = (uri: string, opts?: SocketIOClient.ConnectOpts): Pick<State, 
   const [state] = useState<State>({ ...initialState, socket: io(uri, { ...opts, autoConnect: false }) });
 
   useEffect(() => {
+    state.socket.on("connect", () => console.log("connected"));
+    state.socket.on("disconnect", () => console.log("disconnected"));
+
     return () => {
-      state.socket.removeAllListeners();
       state.socket.disconnect();
+      state.socket.removeAllListeners();
     };
   }, [uri, opts]);
 
