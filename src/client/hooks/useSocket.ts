@@ -12,11 +12,14 @@ const useSocket = (
 ): { socket: SocketIOClient.Socket } => {
   const [socket, setSocket] = useState<SocketIOClient.Socket>(io(uri, { ...opts, autoConnect: false }));
   const refs = useRef(listeners);
-  refs.current = listeners;
 
   useEffect(() => {
     if (socket.io.uri !== uri) setSocket(io(uri, { ...opts, autoConnect: false }));
   }, [uri]);
+
+  useEffect(() => {
+    refs.current = listeners;
+  }, [listeners]);
 
   useEffect(() => {
     socket.on("connect", () => console.log("connected"));
