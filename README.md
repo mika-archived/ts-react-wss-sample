@@ -16,3 +16,8 @@ $ yarn run start:server # chat server, http://localhost:3002
 ```
 
 
+## Tests
+
+```bash
+$ yarn run test
+```
