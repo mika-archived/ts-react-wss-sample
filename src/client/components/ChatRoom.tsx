@@ -29,6 +29,10 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
   const { socket } = useSocket(`http://localhost:3002`);
 
   useEffect(() => {
+    socket.connect(); // connect once
+  }, []);
+
+  useEffect(() => {
     socket.on("connect", () => {
       socket.emit("join", { room: state.id });
     });
@@ -36,8 +40,6 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
     socket.on("message", (message: Message) => {
       setState({ ...state, messages: [...state.messages, message] });
     });
-
-    socket.open();
   });
 
   const sendMessage = (content: string): void => {
