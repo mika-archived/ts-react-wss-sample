@@ -18,12 +18,7 @@ const useSocket = (
   }, [uri]);
 
   useEffect(() => {
-    refs.current = listeners;
-  }, [listeners]);
-
-  useEffect(() => {
     const previous = refs.current;
-    refs.current = listeners;
 
     const runListener = (event: string, ...args: any[]) => {
       const listener = refs.current[event];
@@ -33,6 +28,10 @@ const useSocket = (
     Object.keys(previous).forEach(event => socket.removeListener(event));
     Object.keys(listeners).forEach(event => socket.on(event, (...args: any[]) => runListener(event, ...args)));
   }, [Object.keys(listeners).join("-")]); // when listen events is changed, unsubscribe and subscribe
+
+  useEffect(() => {
+    refs.current = listeners;
+  }, [listeners]);
 
   useEffect(() => {
     return () => {
