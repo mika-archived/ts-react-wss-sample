@@ -11,8 +11,10 @@ Sample chat application using the following stacks:
 ## Development
 
 ```bash
-$ yarn run start:client # chat client, http://localhost:3001
-$ yarn run start:server # chat server, http://localhost:3002
+$ yarn run start
+# or
+$ yarn run start:client # http://localhost:3001
+$ yarn run start:server # http://localhost:3002
 ```
 
 
