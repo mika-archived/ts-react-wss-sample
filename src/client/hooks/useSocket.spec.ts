@@ -6,11 +6,17 @@ type Listeners = {
   [event: string]: (...args: any[]) => void;
 };
 
+type UseSocketProps = {
+  uri: string;
+  listeners: Listeners;
+  opts?: SocketIOClient.ConnectOpts;
+};
+
 it("useSocket", () => {
   const onConnect = jest.fn();
   const onDisconnect = jest.fn();
   const onMessage = jest.fn();
-  const hook = renderHook(({ uri, listeners }: { uri: string; listeners: Listeners }) => useSocket(uri, listeners), {
+  const hook = renderHook(({ uri, listeners }: UseSocketProps) => useSocket(uri, listeners), {
     initialProps: {
       uri: "http://example.com",
       listeners: {
@@ -20,7 +26,8 @@ it("useSocket", () => {
       }
     }
   });
-  let { socket } = hook.result.current;
+
+  const { socket } = hook.result.current;
 
   // disable autoConnect
   expect(socket.connected).toBeFalsy();
@@ -65,6 +72,7 @@ it("useSocket", () => {
   // socket = hook.result.current.socket;
 
   // rerender (listener is changed)
+  jest.spyOn(socket, "on");
   hook.rerender({
     uri: "http://example.com",
     listeners: {
@@ -75,7 +83,8 @@ it("useSocket", () => {
     }
   });
 
-  expect(socket.removeListener).toHaveBeenCalledTimes(3);
+  expect(socket.removeListener).toHaveBeenCalledTimes(3); // connect, message, disconnect
+  expect(socket.on).toHaveBeenCalledTimes(4); // connect, message, disconnect, joined
   expect(socket.listeners("joined").length).toBe(1);
 
   act(() => {

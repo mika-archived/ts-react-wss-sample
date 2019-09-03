@@ -13,9 +13,17 @@ const useSocket = (
   const [socket, setSocket] = useState<SocketIOClient.Socket>(io.connect(uri, { ...opts, autoConnect: false }));
   const refs = useRef(listeners);
 
+  // TODO: return re-created socket
   useEffect(() => {
     if (socket.io.uri !== uri) setSocket(io.connect(uri, { ...opts, autoConnect: false }));
   }, [uri]);
+
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+      socket.removeAllListeners();
+    };
+  }, [socket]);
 
   useEffect(() => {
     const previous = refs.current;
@@ -25,20 +33,16 @@ const useSocket = (
       if (listener) listener(...args);
     };
 
-    Object.keys(previous).forEach(event => socket.removeListener(event));
     Object.keys(listeners).forEach(event => socket.on(event, (...args: any[]) => runListener(event, ...args)));
+
+    return () => {
+      Object.keys(previous).forEach(event => socket.removeListener(event));
+    };
   }, [Object.keys(listeners).join("-")]); // when listen events is changed, unsubscribe and subscribe
 
   useEffect(() => {
     refs.current = listeners;
   }, [listeners]);
-
-  useEffect(() => {
-    return () => {
-      socket.disconnect();
-      socket.removeAllListeners();
-    };
-  }, [socket]);
 
   return { socket };
 };
