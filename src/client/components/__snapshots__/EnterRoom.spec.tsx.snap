@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not have changes between snapshots 1`] = `
+<DocumentFragment>
+  <p>
+    ルーム ID を入力してください。
+  </p>
+  <div>
+    <input
+      class="sc-bwzfXH eodmcB"
+      role="textbox"
+      type="text"
+    />
+    <button
+      class="sc-bdVaJa ldHTCk"
+      disabled=""
+      role="button"
+      type="submit"
+    >
+      入室する
+    </button>
+  </div>
+</DocumentFragment>
+`;

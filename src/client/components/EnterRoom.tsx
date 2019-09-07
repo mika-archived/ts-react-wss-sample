@@ -15,8 +15,8 @@ const EnterRoom: React.FC<Props> = props => {
     <>
       <p>ルーム ID を入力してください。</p>
       <div>
-        <TextBox type="text" onChange={event => setValue(event.target.value)} />
-        <Button primary type="submit" disabled={!value} onClick={() => props.onSubmit(value)}>
+        <TextBox type="text" role="textbox" onChange={event => setValue(event.target.value)} />
+        <Button primary type="submit" role="button" disabled={!value} onClick={() => props.onSubmit(value)}>
           入室する
         </Button>
       </div>
