@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Message } from "../../type";
 import useSocket from "../hooks/useSocket";
 import Button from "./controls/Button";
-import { HorizontalLayout, VerticalLayout } from "./controls/Layout";
+import Layout from "./controls/Layout";
 import ChatInputBox from "./ChatInputBox";
 import ChatMessage from "./ChatMessage";
 
@@ -45,7 +45,7 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
   };
 
   return (
-    <VerticalLayout>
+    <Layout direction="vertical">
       <div>
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
         <h2>Room ID: {state.id}</h2>
@@ -56,13 +56,13 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
           <ChatMessage key={w.timestamp} message={w} />
         ))}
       </div>
-      <HorizontalLayout>
+      <Layout direction="horizontal">
         <div style={{ flex: 1 }}>
           <ChatInputBox onSubmit={message => sendMessage(message)} />
         </div>
         <Button onClick={() => onLeave()}>退室する</Button>
-      </HorizontalLayout>
-    </VerticalLayout>
+      </Layout>
+    </Layout>
   );
 };
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Button from "./controls/Button";
 import TextBox from "./controls/TextBox";
-import { HorizontalLayout } from "./controls/Layout";
+import Layout from "./controls/Layout";
 
 type Props = {
   onSubmit: (message: string) => void;
@@ -25,7 +25,7 @@ const ChatInputBox: React.FC<Props> = props => {
   };
 
   return (
-    <HorizontalLayout>
+    <Layout direction="horizontal">
       <TextBox
         value={state.message}
         onChange={event => setState({ message: event.target.value })}
@@ -34,7 +34,7 @@ const ChatInputBox: React.FC<Props> = props => {
       <Button primary disabled={!state.message} onClick={() => sendMessage()} type="submit" style={{ width: "100px" }}>
         送信
       </Button>
-    </HorizontalLayout>
+    </Layout>
   );
 };
 

@@ -1,14 +1,18 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const HorizontalLayout = styled.div`
+type Props = {
+  direction: "horizontal" | "vertical";
+};
+
+const Layout = styled.div<Props>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${props => (props.direction === "vertical" ? "column" : "row")};
+  ${props =>
+    props.direction === "vertical"
+      ? css`
+          height: 100%;
+        `
+      : ``}
 `;
 
-const VerticalLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-export { HorizontalLayout, VerticalLayout };
+export default Layout;
