@@ -2,30 +2,34 @@ import "@testing-library/jest-dom/extend-expect";
 
 import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
-import EnterRoom from "./EnterRoom";
+import ChatInputBox from "./ChatInputBox";
 
 afterEach(cleanup);
 
 test("does not have changes between snapshots", () => {
-  const { asFragment } = render(<EnterRoom onSubmit={() => {}} />);
+  const { asFragment } = render(<ChatInputBox onSubmit={() => {}} />);
 
   expect(asFragment()).toMatchSnapshot();
 });
 
-test("fire `onSubmit` event with inputs when enter the RoomID and click the button", () => {
+test("fire `onSubmit` event with inputs and cleanup textbox when enter the message and click the button", () => {
   const callback = jest.fn();
-  const { getByRole } = render(<EnterRoom onSubmit={callback} />);
+  const { getByRole } = render(<ChatInputBox onSubmit={callback} />);
 
   fireEvent.change(getByRole("textbox"), { target: { value: "test" } });
   fireEvent.click(getByRole("button"));
 
+  // fire event
   expect(callback).toHaveBeenCalledTimes(1);
   expect(callback).toHaveBeenCalledWith("test");
+
+  // cleanup textbox
+  expect((getByRole("textbox") as HTMLInputElement).value).toBe("");
 });
 
-test("if RoomID is empty, can not click (fire) the submit button", () => {
+test("if message is empty, can not click (fire) the submit button", () => {
   const callback = jest.fn();
-  const { getByRole } = render(<EnterRoom onSubmit={callback} />);
+  const { getByRole } = render(<ChatInputBox onSubmit={callback} />);
 
   fireEvent.click(getByRole("button"));
 

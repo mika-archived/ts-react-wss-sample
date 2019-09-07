@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not have changes between snapshots 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-htpNat isXiVH"
+    direction="horizontal"
+  >
+    <input
+      class="sc-bwzfXH eodmcB"
+      role="textbox"
+      style="flex: 1;"
+      value=""
+    />
+    <button
+      class="sc-bdVaJa ldHTCk"
+      disabled=""
+      role="button"
+      style="width: 100px;"
+      type="submit"
+    >
+      送信
+    </button>
+  </div>
+</DocumentFragment>
+`;
