@@ -30,13 +30,12 @@ it("useSocket", () => {
   const { socket } = hook.result.current;
 
   // disable autoConnect
-  expect(socket.connected).toBeFalsy();
+  expect(socket.connect).toHaveBeenCalledTimes(0);
 
   // listener registered
   expect(socket.listeners("message").length).toBe(1);
 
   // rerender with same arguments
-  jest.spyOn(socket, "removeListener");
   hook.rerender({
     uri: "http://example.com",
     listeners: {

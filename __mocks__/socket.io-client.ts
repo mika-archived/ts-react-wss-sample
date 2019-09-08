@@ -3,6 +3,8 @@ import { EventEmitter } from "events";
 // Mock for socket.io-client
 const socket = jest.genMockFromModule("socket.io-client") as any;
 
+type Callback = (...args: any[]) => void;
+
 class SocketIOMock extends EventEmitter {
   public io: { uri: string } = { uri: "" };
 
@@ -12,17 +14,27 @@ class SocketIOMock extends EventEmitter {
 
   private opts: SocketIOClient.ConnectOpts | undefined;
 
+  // methods
+  public connect: jest.Mock<this, []>;
+
+  public disconnect: jest.Mock<this, []>;
+
+  public removeListener: jest.Mock<this, [string, Callback?]>;
+
   public constructor(uri: string, opts?: SocketIOClient.ConnectOpts) {
     super();
     this.io.uri = uri;
     this.opts = opts;
+    this.connect = jest.fn(this.connectImpl);
+    this.disconnect = jest.fn(this.disconnectImpl);
+    this.removeListener = jest.fn(this.removeListenerImpl);
 
     if (!this.opts || !!this.opts.autoConnect) {
       this.connect();
     }
   }
 
-  public connect(): this {
+  private connectImpl(): this {
     this.connected = true;
     this.disconnected = false;
 
@@ -30,7 +42,7 @@ class SocketIOMock extends EventEmitter {
     return this;
   }
 
-  public disconnect(): this {
+  private disconnectImpl(): this {
     this.connected = false;
     this.disconnected = true;
 
@@ -38,7 +50,7 @@ class SocketIOMock extends EventEmitter {
     return this;
   }
 
-  public removeListener(event: string, fn?: (...args: any[]) => void): this {
+  private removeListenerImpl(event: string, fn?: (...args: any[]) => void): this {
     if (fn) {
       super.removeListener(event, fn);
     } else {
