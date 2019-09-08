@@ -2,18 +2,53 @@
 
 exports[`does not have changes between snapshots 1`] = `
 <DocumentFragment>
-  <div
-    class="sc-htpNat isXiVH"
+  .c2 {
+  height: 1.8rem;
+  padding: 0.25rem 0.6rem;
+  color: #ffffff;
+  background: #0074d9;
+  border: 1px solid #0074d9;
+}
+
+.c2:disabled {
+  color: #dddddd;
+  background: #aaaaaa;
+  border-color: #aaaaaa;
+}
+
+.c1 {
+  height: 1.4rem;
+  padding: 2px 8px;
+  border: 1px solid #dddddd;
+  outline: 0;
+}
+
+.c1:focus {
+  border: 1px solid #0074d9;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+<div
+    class="c0"
     direction="horizontal"
   >
     <input
-      class="sc-bwzfXH eodmcB"
+      class="c1"
       role="textbox"
       style="flex: 1;"
       value=""
     />
     <button
-      class="sc-bdVaJa ldHTCk"
+      class="c2"
       disabled=""
       role="button"
       style="width: 100px;"
