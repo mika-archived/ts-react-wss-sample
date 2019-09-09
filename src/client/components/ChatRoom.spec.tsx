@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom/extend-expect";
 import "jest-styled-components";
 
+import { act, cleanup, fireEvent, render, RenderResult } from "@testing-library/react";
 import MockDate from "mockdate";
 import React from "react";
-import { act, cleanup, fireEvent, render, RenderResult } from "@testing-library/react";
 import io from "socket.io-client";
 
 import ChatRoom from "./ChatRoom";
@@ -56,9 +56,7 @@ test("when message is received, show it (posted by Anonymous)", async () => {
     socket.emit("message", { content: "Hello", timestamp: 1568041419, user: "Anonymous" });
   });
 
-  const message = await component.findByText((str: string) => {
-    return /Anonymous.*: Hello/.test(str);
-  });
+  const message = await component.findByText(/Anonymous.*: Hello/);
   expect(message).not.toBeUndefined();
 });
 
@@ -69,9 +67,7 @@ test("when message is sent, show it (posted by You)", async () => {
   fireEvent.change(getByRole("textbox"), { target: { value: "Hello, World" } });
   fireEvent.click(getByText("送信"));
 
-  const component = await findByText((str: string) => {
-    return /You.*: Hello, World/.test(str);
-  });
+  const component = await findByText(/You.*: Hello, World/);
   expect(component).not.toBeUndefined();
 });
 
