@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`does not have changes between previous snapshots 1`] = `
+<DocumentFragment>
+  .c3 {
+  height: 1.8rem;
+  padding: 0.25rem 0.6rem;
+  color: #ffffff;
+  background: #0074d9;
+  border: 1px solid #0074d9;
+}
+
+.c3:disabled {
+  color: #dddddd;
+  background: #aaaaaa;
+  border-color: #aaaaaa;
+}
+
+.c4 {
+  height: 1.8rem;
+  padding: 0.25rem 0.6rem;
+  color: #111111;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+}
+
+.c4:disabled {
+  color: #dddddd;
+  background: #aaaaaa;
+  border-color: #aaaaaa;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c2 {
+  height: 1.4rem;
+  padding: 2px 8px;
+  border: 1px solid #dddddd;
+  outline: 0;
+}
+
+.c2:focus {
+  border: 1px solid #0074d9;
+}
+
+<div
+    class="c0"
+    direction="vertical"
+  >
+    <div>
+      <h2>
+        Room ID: example
+      </h2>
+      <p>
+        Messages
+      </p>
+    </div>
+    <div
+      style="flex: 1;"
+    />
+    <div
+      class="c1"
+      direction="horizontal"
+    >
+      <div
+        style="flex: 1;"
+      >
+        <div
+          class="c1"
+          direction="horizontal"
+        >
+          <input
+            class="c2"
+            role="textbox"
+            style="flex: 1;"
+            value=""
+          />
+          <button
+            class="c3"
+            disabled=""
+            role="button"
+            style="width: 100px;"
+            type="submit"
+          >
+            送信
+          </button>
+        </div>
+      </div>
+      <button
+        class="c4"
+        role="button"
+      >
+        退室する
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

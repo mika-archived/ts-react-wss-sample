@@ -40,7 +40,7 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
     socket.send({ room: state.id, ...message });
     setState({
       ...state,
-      messages: [...state.messages, { user: "You", ...message }]
+      messages: [...state.messages, { ...message, user: "You" }]
     });
   };
 
@@ -60,7 +60,9 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
         <div style={{ flex: 1 }}>
           <ChatInputBox onSubmit={message => sendMessage(message)} />
         </div>
-        <Button onClick={() => onLeave()}>退室する</Button>
+        <Button role="button" onClick={() => onLeave()}>
+          退室する
+        </Button>
       </Layout>
     </Layout>
   );
