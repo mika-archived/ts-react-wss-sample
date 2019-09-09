@@ -90,7 +90,6 @@ it("useSocket", () => {
     socket.connect();
   });
 
-  expect(socket.connected).toBeTruthy();
   expect(onConnect).toHaveBeenCalledTimes(1); // called connect event
 
   socket.emit("message", {});
@@ -98,7 +97,7 @@ it("useSocket", () => {
 
   hook.unmount();
 
-  expect(socket.connected).toBeFalsy();
+  expect(socket.disconnect).toHaveBeenCalledTimes(1);
   expect(onDisconnect).toHaveBeenCalledTimes(1); // called disconnect event
   expect(socket.listeners("message").length).toBe(0); // unsubscribed
 });
