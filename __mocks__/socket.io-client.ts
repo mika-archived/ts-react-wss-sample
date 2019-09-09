@@ -21,6 +21,8 @@ class SocketIOMock extends EventEmitter {
 
   public removeListener: jest.Mock<this, [string, Callback?]>;
 
+  public send: jest.Mock<this, [...any[]]>;
+
   public constructor(uri: string, opts?: SocketIOClient.ConnectOpts) {
     super();
     this.io.uri = uri;
@@ -28,6 +30,7 @@ class SocketIOMock extends EventEmitter {
     this.connect = jest.fn(this.connectImpl);
     this.disconnect = jest.fn(this.disconnectImpl);
     this.removeListener = jest.fn(this.removeListenerImpl);
+    this.send = jest.fn(this.sendImpl);
 
     if (!this.opts || !!this.opts.autoConnect) {
       this.connect();
@@ -56,6 +59,11 @@ class SocketIOMock extends EventEmitter {
     } else {
       super.removeAllListeners(event);
     }
+    return this;
+  }
+
+  private sendImpl(...args: any[]): this {
+    this.emit("message", ...args);
     return this;
   }
 }
