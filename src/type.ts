@@ -1,5 +1,16 @@
-export type Message = {
+export type MessageRequest = {
+  content: string;
+};
+
+export type MessageResponse = {
   content: string;
   timestamp: number;
-  user: string;
+  username: string;
 };
+
+export type JoinRequest = {
+  roomId: string;
+  username: string;
+};
+
+export type LeaveRequest = {};

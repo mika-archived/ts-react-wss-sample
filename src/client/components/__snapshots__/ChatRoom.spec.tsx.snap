@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`does not have changes between previous snapshots 1`] = `
+exports[`does not have changes between snapshots 1`] = `
 <DocumentFragment>
   .c3 {
-  height: 1.8rem;
+  height: 1.9rem;
   padding: 0.25rem 0.6rem;
   color: #ffffff;
   background: #0074d9;
@@ -17,7 +17,7 @@ exports[`does not have changes between previous snapshots 1`] = `
 }
 
 .c4 {
-  height: 1.8rem;
+  height: 1.9rem;
   padding: 0.25rem 0.6rem;
   color: #111111;
   background: #ffffff;
@@ -52,7 +52,7 @@ exports[`does not have changes between previous snapshots 1`] = `
 }
 
 .c2 {
-  height: 1.4rem;
+  height: 1.6rem;
   padding: 2px 8px;
   border: 1px solid #dddddd;
   outline: 0;
@@ -76,7 +76,11 @@ exports[`does not have changes between previous snapshots 1`] = `
     </div>
     <div
       style="flex: 1;"
-    />
+    >
+      <p>
+        HinataYui (2009/02/14 08:31:30) : Angel Beats!
+      </p>
+    </div>
     <div
       class="c1"
       direction="horizontal"
@@ -101,7 +105,7 @@ exports[`does not have changes between previous snapshots 1`] = `
             style="width: 100px;"
             type="submit"
           >
-            送信
+            Sent
           </button>
         </div>
       </div>
@@ -109,7 +113,7 @@ exports[`does not have changes between previous snapshots 1`] = `
         class="c4"
         role="button"
       >
-        退室する
+        Leave Room
       </button>
     </div>
   </div>

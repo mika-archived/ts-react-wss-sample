@@ -40,7 +40,7 @@ const ChatInputBox: React.FC<Props> = props => {
         role="button"
         style={{ width: "100px" }}
       >
-        送信
+        Sent
       </Button>
     </Layout>
   );

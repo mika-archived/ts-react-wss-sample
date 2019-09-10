@@ -24,6 +24,12 @@
       {
         "extensions": [".js", ".ts", ".jsx", ".tsx"]
       }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "controlComponents": ["TextBox"]
+      }
     ]
   }
 }

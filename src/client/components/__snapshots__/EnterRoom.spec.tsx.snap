@@ -3,10 +3,10 @@
 exports[`does not have changes between snapshots 1`] = `
 <DocumentFragment>
   <p>
-    ルーム ID を入力してください。
+    Please enter Username and Room ID : 
   </p>
   .c1 {
-  height: 1.8rem;
+  height: 1.9rem;
   padding: 0.25rem 0.6rem;
   color: #ffffff;
   background: #0074d9;
@@ -20,7 +20,7 @@ exports[`does not have changes between snapshots 1`] = `
 }
 
 .c0 {
-  height: 1.4rem;
+  height: 1.6rem;
   padding: 2px 8px;
   border: 1px solid #dddddd;
   outline: 0;
@@ -33,8 +33,17 @@ exports[`does not have changes between snapshots 1`] = `
 <div>
     <input
       class="c0"
+      placeholder="Username"
       role="textbox"
       type="text"
+      value="Anonymous"
+    />
+    <input
+      class="c0"
+      placeholder="Room ID"
+      role="textbox"
+      type="text"
+      value=""
     />
     <button
       class="c1"
@@ -42,7 +51,7 @@ exports[`does not have changes between snapshots 1`] = `
       role="button"
       type="submit"
     >
-      入室する
+      Join Room
     </button>
   </div>
 </DocumentFragment>

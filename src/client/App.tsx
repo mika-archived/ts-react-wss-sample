@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastProvider } from "react-toast-notifications";
 import styled from "styled-components";
 
 import Layout from "./components/controls/Layout";
@@ -12,11 +13,15 @@ const Main = styled(Content)`
 
 const App: React.FC = () => {
   return (
-    <Layout direction="vertical">
-      <Header />
-      <Main />
-      <Footer />
-    </Layout>
+    <ToastProvider placement="bottom-right">
+      <React.StrictMode>
+        <Layout direction="vertical">
+          <Header />
+          <Main />
+          <Footer />
+        </Layout>
+      </React.StrictMode>
+    </ToastProvider>
   );
 };
 

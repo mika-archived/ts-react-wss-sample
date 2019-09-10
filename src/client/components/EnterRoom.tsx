@@ -5,19 +5,39 @@ import Button from "./controls/Button";
 import TextBox from "./controls/TextBox";
 
 type Props = {
-  onSubmit: (id: string) => void;
+  onSubmit: (id: string, username: string) => void;
 };
 
 const EnterRoom: React.FC<Props> = props => {
-  const [value, setValue] = useState<string>("");
+  const [roomId, setRoomId] = useState<string>("");
+  const [username, setUsername] = useState<string>("Anonymous");
 
   return (
     <>
-      <p>ルーム ID を入力してください。</p>
+      <p>Please enter Username and Room ID : </p>
       <div>
-        <TextBox type="text" role="textbox" onChange={event => setValue(event.target.value)} />
-        <Button primary type="submit" role="button" disabled={!value} onClick={() => props.onSubmit(value)}>
-          入室する
+        <TextBox
+          type="text"
+          role="textbox"
+          placeholder="Username"
+          value={username}
+          onChange={event => setUsername(event.target.value)}
+        />
+        <TextBox
+          type="text"
+          role="textbox"
+          placeholder="Room ID"
+          value={roomId}
+          onChange={event => setRoomId(event.target.value)}
+        />
+        <Button
+          primary
+          type="submit"
+          role="button"
+          disabled={!roomId || !username}
+          onClick={() => props.onSubmit(roomId, username)}
+        >
+          Join Room
         </Button>
       </div>
     </>

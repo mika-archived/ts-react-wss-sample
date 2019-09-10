@@ -1,67 +1,38 @@
-import dayjs from "dayjs";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-import { Message } from "../../type";
-import useSocket from "../hooks/useSocket";
 import Button from "./controls/Button";
 import Layout from "./controls/Layout";
 import ChatInputBox from "./ChatInputBox";
 import ChatMessage from "./ChatMessage";
+import { MessageResponse } from "../../type";
 
 type Props = {
-  id: string;
+  roomId: string;
+  messages: MessageResponse[];
+  onSubmit: (message: string) => void;
   onLeave: () => void;
 };
 
-type State = {
-  id: string;
-  messages: Message[];
-};
-
-const initialState: State = {
-  id: "",
-  messages: []
-};
-
-const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
-  const [state, setState] = useState<State>({ ...initialState, id });
-  const { socket } = useSocket(`http://localhost:3002`, {
-    connect: () => socket.emit("join", { room: state.id }),
-    message: (message: Message) => setState({ ...state, messages: [...state.messages, message] })
-  });
-
-  useEffect(() => {
-    socket.connect(); // connect once
-  }, []);
-
-  const sendMessage = (content: string): void => {
-    const message = { user: "Anonymous", content, timestamp: dayjs().unix() };
-    socket.send({ room: state.id, ...message });
-    setState({
-      ...state,
-      messages: [...state.messages, { ...message, user: "You" }]
-    });
-  };
-
+const ChatRoom: React.FC<Props> = ({ roomId, messages, onSubmit, onLeave }) => {
   return (
     <Layout direction="vertical">
       <div>
         {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-        <h2>Room ID: {state.id}</h2>
+        <h2>Room ID: {roomId}</h2>
         <p>Messages</p>
       </div>
       <div style={{ flex: 1 }}>
-        {state.messages.map(w => (
+        {messages.map(w => (
           <ChatMessage key={w.timestamp} message={w} />
         ))}
       </div>
       <Layout direction="horizontal">
         <div style={{ flex: 1 }}>
-          <ChatInputBox onSubmit={message => sendMessage(message)} />
+          <ChatInputBox onSubmit={onSubmit} />
         </div>
-        <Button role="button" onClick={() => onLeave()}>
-          退室する
+        <Button role="button" onClick={onLeave}>
+          Leave Room
         </Button>
       </Layout>
     </Layout>
@@ -69,7 +40,15 @@ const ChatRoom: React.FC<Props> = ({ id, onLeave }) => {
 };
 
 ChatRoom.propTypes = {
-  id: PropTypes.string.isRequired,
+  roomId: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      content: PropTypes.string.isRequired,
+      timestamp: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+  onSubmit: PropTypes.func.isRequired,
   onLeave: PropTypes.func.isRequired
 };
 

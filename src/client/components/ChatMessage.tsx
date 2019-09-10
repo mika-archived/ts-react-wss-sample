@@ -2,10 +2,10 @@ import dayjs from "dayjs";
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Message } from "../../type";
+import { MessageResponse } from "../../type";
 
 type Props = {
-  message: Message;
+  message: MessageResponse;
 };
 
 const ChatMessage: React.FC<Props> = ({ message }) => {
@@ -16,7 +16,7 @@ const ChatMessage: React.FC<Props> = ({ message }) => {
   return (
     <p>
       {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-      {message.user} ({toString(message.timestamp)}) : {message.content}
+      {message.username} ({toString(message.timestamp)}) : {message.content}
     </p>
   );
 };
@@ -25,7 +25,7 @@ ChatMessage.propTypes = {
   message: PropTypes.shape({
     content: PropTypes.string.isRequired,
     timestamp: PropTypes.number.isRequired,
-    user: PropTypes.string.isRequired
+    username: PropTypes.string.isRequired
   }).isRequired
 };
 

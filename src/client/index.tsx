@@ -19,9 +19,9 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <GlobalStyles />
     <App />
-  </React.StrictMode>,
+  </>,
   document.querySelector("#app")
 );

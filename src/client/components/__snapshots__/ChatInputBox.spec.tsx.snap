@@ -3,7 +3,7 @@
 exports[`does not have changes between snapshots 1`] = `
 <DocumentFragment>
   .c2 {
-  height: 1.8rem;
+  height: 1.9rem;
   padding: 0.25rem 0.6rem;
   color: #ffffff;
   background: #0074d9;
@@ -17,7 +17,7 @@ exports[`does not have changes between snapshots 1`] = `
 }
 
 .c1 {
-  height: 1.4rem;
+  height: 1.6rem;
   padding: 2px 8px;
   border: 1px solid #dddddd;
   outline: 0;
@@ -54,7 +54,7 @@ exports[`does not have changes between snapshots 1`] = `
       style="width: 100px;"
       type="submit"
     >
-      送信
+      Sent
     </button>
   </div>
 </DocumentFragment>
