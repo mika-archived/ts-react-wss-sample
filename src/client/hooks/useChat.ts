@@ -32,10 +32,6 @@ const useChat = (uri: string, callbacks?: Callbacks): ChatOperators => {
 
   useEffect(() => {
     socket.connect();
-
-    return () => {
-      socket.disconnect();
-    };
   }, [uri]);
 
   const join = (id: string, username: string) => {
