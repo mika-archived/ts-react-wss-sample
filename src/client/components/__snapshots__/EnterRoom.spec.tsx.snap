@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`does not have changes between snapshots 1`] = `
+exports[`does not have changes between snapshot 1`] = `
 <DocumentFragment>
   <p>
     Please enter Username and Room ID : 
